@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<script>
+function dragenter(event)
+{
+  console.log("dragenter");
+}
+
+function dragover(event)
+{
+  console.log("dragover");
+
+  event.preventDefault();
+}
+
+function dragleave(event)
+{
+  console.log("dragleave");
+}
+
+function dragstart(event)
+{
+  console.log("dragstart: " + event.target.id);
+  event.dataTransfer.setData("Text", event.target.id);
+}
+
+function drop(event)
+{
+  console.log("drop");
+  var targetid = event.target.getAttribute("id");
+
+  if(targetid == 'drophere')
+  {
+    var data = event.dataTransfer.getData("Text");
+
+    console.log("drop target = " + targetid  + ", transfered data = " + data);
+
+    event.target.appendChild(document.getElementById(data));
+    event.preventDefault();
+  }
+}
+
+
+</script>
+
+<body>
+<img id="apple" src="./apple.jpg" draggable="true" ondragstart="dragstart(event)" /><br/>
+<img id="tomato" src="./tomato.jpg" draggable="true" ondragstart="dragstart(event)"/><br/>
+<img id="orange" src="./orange.jpg" draggable="true" ondragstart="dragstart(event)"/><br/>
+
+
+<div id="drophere" style="background:beige;border:1px dotted; width:500px; height:700px"
+    ondragenter="dragenter(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"/>
+
+</body>
+</html>
+
+
